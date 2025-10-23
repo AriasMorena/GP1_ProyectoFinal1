@@ -2,6 +2,8 @@
 package Entidades;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 /**
  *
  * @author bustos Guada
@@ -19,7 +21,7 @@ public class Pelicula {
     
     
     public Pelicula (){
-        this.actores = ArryList<>();
+        this.actores = new ArrayList<>();
     }
 
     public Pelicula(String titulo, String director,List<String> actores, 
@@ -105,7 +107,7 @@ public class Pelicula {
                 "\nGénero: "  + género + 
                 "\nOrigen: " + origen + 
                 "\nEstreno: " + estreno +
-                "\nEn Cartelera: " + (enCartelera ? "Si" o "No") ;
+                "\nEn Cartelera: " + enCartelera ;
     }
     
   
