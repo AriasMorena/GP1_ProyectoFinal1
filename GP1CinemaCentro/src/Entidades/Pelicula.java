@@ -89,6 +89,24 @@ public class Pelicula {
         this.enCartelera = enCartelera;
     }
     
+    public void agregarActor(String nombre ){
+        if(nombre != null && ! nombre.isEmpty()){
+            actores.add(nombre);
+        }
+    }
     
+    public void cambiarEstadoCartelera(boolean estado){
+        this.enCartelera = estado;
+    }
     
+    public String obtenerInformación(){
+        return "Pelicula: " + titulo +
+                "\nDirector: " + director +
+                "\nGénero: "  + género + 
+                "\nOrigen: " + origen + 
+                "\nEstreno: " + estreno +
+                "\nEn Cartelera: " + (enCartelera ? "Si" o "No") ;
+    }
+    
+  
 }
