@@ -29,6 +29,15 @@ public class PeliculaData {
             
          String sql = "INSERT TO pelicula (titulo, director, actores, origen, genero, estreno, enCartelera)" + "VALUES(?,?,?,?,?,?,?)";
             
+         Date fechaUtil = pelicula.getEstreno();
+         java.sql.Date fechaSql = null;
+         
+         if (fechaSql != null) {
+            
+             fechaSql = new java.sql.Date (fechaUtil.getTime());
+        }
+         
+         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, pelicula.getTitulo());
@@ -36,7 +45,7 @@ public class PeliculaData {
             ps.setString(3, pelicula.getActores());
             ps.setString(4, pelicula.getOrigen());
             ps.setString(5, pelicula.getGenero());
-            ps.setDate(6, Date.ValueOf(pelicula.getEstreno()));
+            ps.setDate(6, fechaSql);
             ps.setBoolean(7, pelicula.isEnCartelera());
             ps.executeUpdate();
             System.out.println("Pelicula guardada");
