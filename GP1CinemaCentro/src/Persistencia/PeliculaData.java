@@ -60,6 +60,12 @@ public class PeliculaData {
             if (rs.next()){
                 
             pelicula = new Pelicula();
+            pelicula.setTitulo(rs.getString("titulo"));
+            pelicula.setDirector(rs.getString("director"));
+            pelicula.setOrigen(rs.getString("origen"));
+            pelicula.setGenero(rs.getString("genero"));
+            pelicula.setEstreno(rs.getDate("estreno").toLocalDate());
+            pelicula.setEnCartelera(rs.getBoolean("estado"));
             
             
             }

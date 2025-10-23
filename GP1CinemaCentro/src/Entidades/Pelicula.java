@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class Pelicula {
     
+    private int idPelicula;
     private String titulo;
     private String director;
     private String actores;
@@ -22,8 +23,9 @@ public class Pelicula {
         
     }
 
-    public Pelicula(String titulo, String director, String actores, 
+    public Pelicula(int idPelicula,String titulo, String director, String actores, 
             String origen, String genero, Date estreno, boolean enCartelera) {
+        this.idPelicula= idPelicula;
         this.titulo = titulo;
         this.director = director;
         this.actores = actores;
@@ -33,6 +35,16 @@ public class Pelicula {
         this.enCartelera = enCartelera;
     }
 
+    public int getIdPelicula() {
+        return idPelicula;
+    }
+
+    public void setIdPelicula(int idPelicula) {
+        this.idPelicula = idPelicula;
+    }
+
+    
+    
     public String getTitulo() {
         return titulo;
     }
