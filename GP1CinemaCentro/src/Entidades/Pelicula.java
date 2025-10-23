@@ -1,9 +1,7 @@
 
 package Entidades;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 /**
  *
  * @author bustos Guada
@@ -13,24 +11,24 @@ public class Pelicula {
     
     private String titulo;
     private String director;
-    private List<String> actores;
+    private String actores;
     private String origen;
-    private String género;
+    private String genero;
     private Date estreno;
     private boolean enCartelera;
     
     
     public Pelicula (){
-        this.actores = new ArrayList<>();
+        
     }
 
-    public Pelicula(String titulo, String director,List<String> actores, 
-            String origen, String género, Date estreno, boolean enCartelera) {
+    public Pelicula(String titulo, String director, String actores, 
+            String origen, String genero, Date estreno, boolean enCartelera) {
         this.titulo = titulo;
         this.director = director;
-        this.actores = actores != null ? actores: new ArrayList<>();
+        this.actores = actores;
         this.origen = origen;
-        this.género = género;
+        this.genero = genero;
         this.estreno = estreno;
         this.enCartelera = enCartelera;
     }
@@ -51,11 +49,11 @@ public class Pelicula {
         this.director = director;
     }
 
-    public List<String> getActores() {
+    public String getActores() {
         return actores;
     }
 
-    public void setActores(List<String> actores) {
+    public void setActores(String actores) {
         this.actores = actores;
     }
 
@@ -67,12 +65,12 @@ public class Pelicula {
         this.origen = origen;
     }
 
-    public String getGénero() {
-        return género;
+    public String getGenero() {
+        return genero;
     }
 
-    public void setGénero(String género) {
-        this.género = género;
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
     public Date getEstreno() {
@@ -104,11 +102,13 @@ public class Pelicula {
     public String obtenerInformación(){
         return "Pelicula: " + titulo +
                 "\nDirector: " + director +
-                "\nGénero: "  + género + 
+                "\nGénero: "  + genero + 
                 "\nOrigen: " + origen + 
                 "\nEstreno: " + estreno +
                 "\nEn Cartelera: " + enCartelera ;
     }
     
-  
+  public String toString() {
+        return "Título: " + titulo + "\nDirector: " + director + "\nGénero: " + genero + "\nEstreno: " + estreno + "\nActores: " + actores;
+    }
 }
