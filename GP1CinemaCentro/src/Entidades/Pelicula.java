@@ -44,7 +44,6 @@ public class Pelicula {
     }
 
     
-    
     public String getTitulo() {
         return titulo;
     }
@@ -113,6 +112,7 @@ public class Pelicula {
     
     public String obtenerInformación(){
         return "Pelicula: " + titulo +
+                "\nidPelicula:" + idPelicula +
                 "\nDirector: " + director +
                 "\nGénero: "  + genero + 
                 "\nOrigen: " + origen + 
@@ -121,6 +121,6 @@ public class Pelicula {
     }
     
   public String toString() {
-        return "Título: " + titulo + "\nDirector: " + director + "\nGénero: " + genero + "\nEstreno: " + estreno + "\nActores: " + actores;
+        return  "Título: " + titulo + "\nidPelicula"+ idPelicula + "\nDirector: " + director + "\nGénero: " + genero + "\nEstreno: " + estreno + "\nActores: " + actores;
     }
 }

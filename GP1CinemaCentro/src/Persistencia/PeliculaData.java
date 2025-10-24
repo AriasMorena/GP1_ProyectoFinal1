@@ -113,10 +113,21 @@ public class PeliculaData {
         
         String sql = "UPDATE pelicula SET enCartelera = ? WHERE id_pelicula = ?";
         
-        PreparedStatement ps = con.prepareStatement(sql);
-        
-        ps.setInt(id, id);
-    
+        try {
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setInt(1, id);
+             
+             int filas = ps.executeUpdate();
+             
+             if(filas > 0) {
+                 System.out.println("Pelicula eliminada correctamente.");
+             } else{
+                 System.out.println("No se encontró ninguna pelicula con ese ID.");
+             }
+             ps.close();
+        }catch(SQLException ex){
+            System.out.println("Error al eliminar la pelicula:" + ex.getMenssage());
+        }
     }
 
     public List<Pelicula>listarPeliculas(){
