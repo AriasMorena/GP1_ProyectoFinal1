@@ -1,7 +1,7 @@
 
 package Entidades;
 
-import java.util.Date;
+import java.time.LocalDate;
 /**
  *
  * @author bustos Guada
@@ -9,13 +9,13 @@ import java.util.Date;
 
 public class Pelicula {
     
-    private int idPelicula;
+    private int id_pelicula;
     private String titulo;
     private String director;
     private String actores;
     private String origen;
     private String genero;
-    private Date estreno;
+    private LocalDate estreno;
     private boolean enCartelera;
     
     
@@ -23,9 +23,20 @@ public class Pelicula {
         
     }
 
-    public Pelicula(int idPelicula,String titulo, String director, String actores, 
-            String origen, String genero, Date estreno, boolean enCartelera) {
-        this.idPelicula= idPelicula;
+    public Pelicula(int id_pelicula, String titulo, String director, String actores, String origen, String genero, LocalDate estreno, boolean enCartelera) {
+        this.id_pelicula = id_pelicula;
+        this.titulo = titulo;
+        this.director = director;
+        this.actores = actores;
+        this.origen = origen;
+        this.genero = genero;
+        this.estreno = estreno;
+        this.enCartelera = enCartelera;
+    }
+    
+
+    public Pelicula(String titulo, String director, String actores, 
+            String origen, String genero, LocalDate estreno, boolean enCartelera) {
         this.titulo = titulo;
         this.director = director;
         this.actores = actores;
@@ -35,14 +46,13 @@ public class Pelicula {
         this.enCartelera = enCartelera;
     }
 
-    public int getIdPelicula() {
-        return idPelicula;
+    public int getId_pelicula() {
+        return id_pelicula;
     }
 
-    public void setIdPelicula(int idPelicula) {
-        this.idPelicula = idPelicula;
+    public void setId_pelicula(int id_pelicula) {
+        this.id_pelicula = id_pelicula;
     }
-
     
     public String getTitulo() {
         return titulo;
@@ -84,11 +94,11 @@ public class Pelicula {
         this.genero = genero;
     }
 
-    public Date getEstreno() {
+    public LocalDate getEstreno() {
         return estreno;
     }
 
-    public void setEstreno(Date estreno) {
+    public void setEstreno(LocalDate estreno) {
         this.estreno = estreno;
     }
 
@@ -112,7 +122,6 @@ public class Pelicula {
     
     public String obtenerInformación(){
         return "Pelicula: " + titulo +
-                "\nidPelicula:" + idPelicula +
                 "\nDirector: " + director +
                 "\nGénero: "  + genero + 
                 "\nOrigen: " + origen + 
@@ -121,6 +130,6 @@ public class Pelicula {
     }
     
   public String toString() {
-        return  "Título: " + titulo + "\nidPelicula"+ idPelicula + "\nDirector: " + director + "\nGénero: " + genero + "\nEstreno: " + estreno + "\nActores: " + actores;
+        return "Título: " + titulo + "\nDirector: " + director + "\nGénero: " + genero + "\nEstreno: " + estreno + "\nActores: " + actores;
     }
 }
