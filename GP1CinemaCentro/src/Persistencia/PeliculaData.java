@@ -121,7 +121,7 @@ public class PeliculaData {
     
     public void eliminarPelicula (int id){
         
-        String sql = "UPDATE pelicula SET enCartelera = ? WHERE id_pelicula = ?";
+        String sql = "DELETE FROM pelicula WHERE id_pelicula = ?";
         
         try {
              PreparedStatement ps = con.prepareStatement(sql);

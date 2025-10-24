@@ -64,6 +64,6 @@ public class Main {
         
         //Eliminar Pelicula
         
-        //peliculaD.eliminarPelicula(1);
+        peliculaD.eliminarPelicula(10);
     }
 }
