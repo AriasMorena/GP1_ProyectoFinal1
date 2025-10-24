@@ -11,10 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 /**
  *
  * @author arias
@@ -31,35 +29,37 @@ public class PeliculaData {
             
          String sql = "INSERT INTO pelicula (titulo, director, actores, origen, genero, estreno, enCartelera)" + "VALUES(?,?,?,?,?,?,?)";
             
+         Date fechaUtil = pelicula.getEstreno();
+         java.sql.Date fechaSql = null;
+         
+         if (fechaUtil != null) {
+            
+             fechaSql = new java.sql.Date (fechaUtil.getTime());
+        }
+         
+         
         try {
-                
-           PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, pelicula.getTitulo());
             ps.setString(2, pelicula.getDirector());
             ps.setString(3, pelicula.getActores());
             ps.setString(4, pelicula.getOrigen());
             ps.setString(5, pelicula.getGenero());
-            ps.setDate(6, Date.valueOf(pelicula.getEstreno()));
+            ps.setDate(6, fechaSql);
             ps.setBoolean(7, pelicula.isEnCartelera());
             ps.executeUpdate();
-            
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()){
-                pelicula.setId_pelicula(rs.getInt(1));
             System.out.println("Pelicula guardada");
-            }           
-            ps.close();
             
         } catch (SQLException ex) {
             System.out.println("Error al guardar pelicula" + ex.getMessage());
         }  
     }
     
-    public void buscarPelicula (int id){
+    public Pelicula buscarPelicula (int id){
      
          Pelicula pelicula = null;
          
-         String sql = "SELECT * FROM pelicula WHERE id_pelicula = ? AND enCartelera = 1";
+         String sql = "SELECT * FROM pelicula WHERE id_pelicula = ?";
          
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -69,21 +69,19 @@ public class PeliculaData {
             if (rs.next()){
                 
             pelicula = new Pelicula();
-            pelicula.setId_pelicula(id);
             pelicula.setTitulo(rs.getString("titulo"));
             pelicula.setDirector(rs.getString("director"));
-            pelicula.setActores(rs.getString("actores"));
             pelicula.setOrigen(rs.getString("origen"));
             pelicula.setGenero(rs.getString("genero"));
-            pelicula.setEstreno(rs.getDate("estreno").toLocalDate());
-            pelicula.setEnCartelera(true);
+            pelicula.setEstreno(rs.getDate("estreno"));
+            pelicula.setEnCartelera(rs.getBoolean("estado"));
             
-            } else {          
-                JOptionPane.showMessageDialog(null, "Esa peli no existe");
+            
             }
              ps.close();
-                     
+            
         } catch (SQLException ex) {
+            
             System.out.println("Error al buscar la pelicula:" + ex.getMessage());
         }
         return pelicula;
@@ -94,6 +92,15 @@ public class PeliculaData {
         String sql = "UPDATE pelicula SET titulo = ?, director = ?, actores = ?, origen = ?, genero = ?, estreno = ?, enCartelera = ? WHERE id_pelicula = ?" ;
     
         PreparedStatement ps;
+        
+        Date fechaUtil = pelicula.getEstreno();
+         java.sql.Date fechaSql = null;
+         
+         if (fechaUtil != null) {
+            
+             fechaSql = new java.sql.Date (fechaUtil.getTime());
+        }
+        
         try {
             ps = con.prepareStatement(sql);     
             ps.setString(1, pelicula.getTitulo());
@@ -101,17 +108,12 @@ public class PeliculaData {
             ps.setString(3, pelicula.getActores());
             ps.setString(4, pelicula.getOrigen());
             ps.setString(5, pelicula.getGenero());
-            ps.setDate(6, Date.valueOf(pelicula.getEstreno()));
+            ps.setDate(6, fechaSql);
             ps.setBoolean(7, pelicula.isEnCartelera());
-            ps.setInt(8, pelicula.getId_pelicula());
+            ps.executeUpdate();
+            ps.close();
+            System.out.println("Pelicula modificada");
             
-            int exito = ps.executeUpdate();
-            
-            if (exito == 1){
-            
-            JOptionPane.showMessageDialog(null, "Modificacion exitosa");
-            
-            }           
         } catch (SQLException ex) {
             System.out.println("Error al modificar la pelicula:" + ex.getMessage());
         }
@@ -121,10 +123,22 @@ public class PeliculaData {
         
         String sql = "UPDATE pelicula SET enCartelera = ? WHERE id_pelicula = ?";
         
-        PreparedStatement ps = con.prepareStatement(sql);
-        
-        ps.setInt(id, id);
-    
+        try {
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setInt(1, id);
+             
+             int filas = ps.executeUpdate();
+             
+             if(filas > 0) {
+                 System.out.println("Pelicula eliminada correctamente.");
+             } else{
+                 System.out.println("No se encontró ninguna pelicula con ese ID.");
+             }
+             ps.close();
+        }catch(SQLException ex){
+            
+            System.out.println("Error al eliminar la pelicula:" + ex.getMessage());
+        }
     }
 
     public List<Pelicula>listarPeliculas(){
@@ -145,7 +159,7 @@ public class PeliculaData {
                 pelicula.setActores(rs.getString("actores"));
                 pelicula.setOrigen(rs.getString("origen"));
                 pelicula.setGenero(rs.getString("genero"));
-                pelicula.setEstreno(rs.getDate("estreno").toLocalDate());
+                pelicula.setEstreno(rs.getDate("estreno"));
                 pelicula.setEnCartelera(true);
                 listarPeliculas.add(pelicula);
             }

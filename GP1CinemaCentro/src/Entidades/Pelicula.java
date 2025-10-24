@@ -1,7 +1,8 @@
 
 package Entidades;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 /**
  *
  * @author bustos Guada
@@ -9,13 +10,13 @@ import java.time.LocalDate;
 
 public class Pelicula {
     
-    private int id_pelicula;
+    private int idPelicula;
     private String titulo;
     private String director;
     private String actores;
     private String origen;
     private String genero;
-    private LocalDate estreno;
+    private Date estreno;
     private boolean enCartelera;
     
     
@@ -23,20 +24,9 @@ public class Pelicula {
         
     }
 
-    public Pelicula(int id_pelicula, String titulo, String director, String actores, String origen, String genero, LocalDate estreno, boolean enCartelera) {
-        this.id_pelicula = id_pelicula;
-        this.titulo = titulo;
-        this.director = director;
-        this.actores = actores;
-        this.origen = origen;
-        this.genero = genero;
-        this.estreno = estreno;
-        this.enCartelera = enCartelera;
-    }
-    
-
-    public Pelicula(String titulo, String director, String actores, 
-            String origen, String genero, LocalDate estreno, boolean enCartelera) {
+    public Pelicula(int idPelicula,String titulo, String director, String actores, 
+            String origen, String genero, Date estreno, boolean enCartelera) {
+        this.idPelicula= idPelicula;
         this.titulo = titulo;
         this.director = director;
         this.actores = actores;
@@ -46,13 +36,14 @@ public class Pelicula {
         this.enCartelera = enCartelera;
     }
 
-    public int getId_pelicula() {
-        return id_pelicula;
+    public int getIdPelicula() {
+        return idPelicula;
     }
 
-    public void setId_pelicula(int id_pelicula) {
-        this.id_pelicula = id_pelicula;
+    public void setIdPelicula(int idPelicula) {
+        this.idPelicula = idPelicula;
     }
+
     
     public String getTitulo() {
         return titulo;
@@ -69,7 +60,7 @@ public class Pelicula {
     public void setDirector(String director) {
         this.director = director;
     }
-
+    
     public String getActores() {
         return actores;
     }
@@ -94,11 +85,11 @@ public class Pelicula {
         this.genero = genero;
     }
 
-    public LocalDate getEstreno() {
+    public Date getEstreno() {
         return estreno;
     }
 
-    public void setEstreno(LocalDate estreno) {
+    public void setEstreno(Date estreno) {
         this.estreno = estreno;
     }
 
@@ -110,18 +101,13 @@ public class Pelicula {
         this.enCartelera = enCartelera;
     }
     
-    public void agregarActor(String nombre ){
-        if(nombre != null && ! nombre.isEmpty()){
-            actores.add(nombre);
-        }
-    }
-    
     public void cambiarEstadoCartelera(boolean estado){
         this.enCartelera = estado;
     }
     
     public String obtenerInformación(){
         return "Pelicula: " + titulo +
+                "\nidPelicula:" + idPelicula +
                 "\nDirector: " + director +
                 "\nGénero: "  + genero + 
                 "\nOrigen: " + origen + 
@@ -130,6 +116,6 @@ public class Pelicula {
     }
     
   public String toString() {
-        return "Título: " + titulo + "\nDirector: " + director + "\nGénero: " + genero + "\nEstreno: " + estreno + "\nActores: " + actores;
+        return  "Título: " + titulo + "\nidPelicula"+ idPelicula + "\nDirector: " + director + "\nGénero: " + genero + "\nEstreno: " + estreno + "\nActores: " + actores;
     }
 }
